@@ -1,0 +1,7 @@
+CREATE TABLE PokeQuest.Frutas(
+	ID int NOT NULL PRIMARY KEY,
+	Nombre varchar(11),
+	Tipo int FOREIGN KEY REFERENCES Tipos(ID)
+);
+
+INSERT INTO Frutas VALUES (1, 'Cheri', 10), (2, 'Chesto', 11), (3, 'Pecha', 13), (4, 'Rawst', 12), (5, 'Aspear', 15), (6, 'Leppa', 2), (7, 'Oran', 4), (8, 'Persim', 5), (9, 'Lum', 3), (10, 'Sitrus', 14), (11, 'Figy', 7), (12, 'Wiki', 6), (13, 'Mago', 8), (14, 'Aguav', 16), (15, 'Iapapa', 17), (16, 'Razz', 9), (17, 'Bluk', 10), (18, 'Nanab', 11), (19, 'Wepear', 13), (20, 'Pinap', 12), (21, 'Pomeg', 15), (22, 'Kelpsy', 2), (23, 'Qualot', 4), (24, 'Hondew', 5), (25, 'Grepa', 3), (26, 'Tamato', 14), (27, 'Cornn', 7), (28, 'Magost', 6), (29, 'Rabuta', 8), (30, 'Nomel', 16), (31, 'Spelon', 17), (32, 'Pamtre', 9), (33, 'Watmel', 10), (34, 'Durin', 11), (35, 'Belue', 13), (36, 'Occa', 10), (37, 'Passho', 11), (38, 'Wacan', 13), (39, 'Rindo', 12), (40, 'Yache', 15), (41, 'Chople', 2), (42, 'Kebia', 4), (43, 'Shuca', 5), (44, 'Coba', 3), (45, 'Payapa', 14), (46, 'Tanga', 7), (47, 'Charti', 6), (48, 'Kasib', 8), (49, 'Haban', 16), (50, 'Colbur', 17), (51, 'Babiri', 9), (52, 'Chilan', 1), (53, 'Liechi', 12), (54, 'Ganlon', 15), (56, 'Petaya', 4), (55, 'Salac', 2), (57, 'Apicot', 5), (58, 'Lansat', 3), (59, 'Starf', 14), (60, 'Enigma', 7), (61, 'Micle', 6), (62, 'Custap', 8), (63, 'Jaboca', 16), (64, 'Rowap', 17);
