@@ -31,29 +31,33 @@ namespace PokeQuestAPI.Controllers
 		{
             try
             {
+                List<Pokemon> result = new();
+
                 if (string.IsNullOrWhiteSpace(term) && string.IsNullOrWhiteSpace(tipo))
                 {
-                    return BadRequest("Debe suministrarse al menos un término del nombre o el tipo de pokemon");
+                    result = await PokemonQueries.GetAllPokemons();
                 }
-
-                List<Pokemon> result = new();
 
                 if (!string.IsNullOrWhiteSpace(term))
                 {
                     if (!string.IsNullOrWhiteSpace(tipo))
                     {
-                        result = await Queries.FilterPokemonsByNameAndType(
+                        result = await PokemonQueries.FilterPokemonsByNameAndType(
                             term.ToLowerInvariant(),
                             tipo.ToLowerInvariant());
                     }
                     else
                     {
-                        result = await Queries.FilterPokemonsByName(
+                        result = await PokemonQueries.FilterPokemonsByName(
                             term.ToLowerInvariant());
                     }
                 }
+                if(string.IsNullOrWhiteSpace(term) && !string.IsNullOrWhiteSpace(tipo))
+                {
+                    result = await PokemonQueries.FilterPokemonsByType(tipo.ToLowerInvariant());
+                }
 
-                return result.Count > 0 ? Ok(result) : StatusCode(500, "Mano, revise esa query");
+                return result.Count > 0 ? Ok(result) : StatusCode(500, "Ha habido un error");
             }
             catch (Exception ex)
             {
