@@ -1,0 +1,8 @@
+CREATE TABLE Usuarios(
+	[ID] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[Avatar] [int] NOT NULL,
+	[Nombre] [varchar](100) NOT NULL UNIQUE,
+	[Email] [varchar](100) NOT NULL UNIQUE,
+	[Contraseña] [varbinary](256) NOT NULL,
+    	[Sal] [varbinary](128) NOT NULL,
+	[FechaInicio] [datetime2](7) NOT NULL DEFAULT GETDATE())
