@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PokeQuestAPI.Classes;
 using PokeQuestAPI.Enums;
+using PokeQuestAPI.Services;
 
 namespace PokeQuestAPI.Controllers
 {
@@ -15,10 +16,12 @@ namespace PokeQuestAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
+        private readonly JwtService _jwtService;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(ILogger<UserController> logger, JwtService jwtService)
         {
             _logger = logger;
+            _jwtService = jwtService;
         }
         /// <summary>
         /// Crear un nuevo usuario o retornar un error si el nombre de usuario o correo ya existe
@@ -41,7 +44,7 @@ namespace PokeQuestAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving pokemons");
+                _logger.LogError(ex, "Error during register");
                 return StatusCode(500, "An error occurred while processing your request");
             }
         }
@@ -55,11 +58,19 @@ namespace PokeQuestAPI.Controllers
                 if (!await UserQueries.UserExists(login.Username)) return BadRequest("Este nombre de usuario no existe");
                 List<User> result = new List<User>();
                 result = await UserQueries.LoginUser(login);
-                return result.Count > 0 ? Ok(result) : BadRequest("Contraseña incorrecta");
+                //Si la lista está vacía, entonces no se introdujo una contraseña correcta, de lo contrario, el usuario existe.
+                // La lista siempre tiene 0 o 1 elemento
+                return result.Count > 0 ? Ok(new
+                {
+                    Token = _jwtService.GenerateToken(result[0]),
+                    UserId = result[0].ID,
+                    Username = result[0].Nombre,
+                    Email = result[0].Email
+                }) : BadRequest("Contraseña incorrecta");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving pokemons");
+                _logger.LogError(ex, "Error during login");
                 return StatusCode(500, "An error occurred while processing your request");
             }
         }
