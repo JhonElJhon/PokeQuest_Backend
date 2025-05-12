@@ -5,4 +5,6 @@ CREATE TABLE Usuarios(
 	[Email] [varchar](100) NOT NULL UNIQUE,
 	[Contraseña] [varbinary](256) NOT NULL,
     	[Sal] [varbinary](128) NOT NULL,
+	[Puntaje] [int] DEFAULT 0,
+	[Trivias] [int] DEFAULT 0,
 	[FechaInicio] [datetime2](7) NOT NULL DEFAULT GETDATE())
