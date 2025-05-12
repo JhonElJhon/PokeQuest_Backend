@@ -74,6 +74,55 @@ namespace PokeQuestAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request");
             }
         }
+
+        [Route("get/{username}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUser(string username)
+        {
+            try
+            {
+                if (!await UserQueries.UserExists(username)) return BadRequest("Este nombre de usuario no existe");
+                List<User> result = new List<User>();
+                result = await UserQueries.GetUser(username);
+                //Si la lista está vacía, entonces no se introdujo una contraseña correcta, de lo contrario, el usuario existe.
+                // La lista siempre tiene 0 o 1 elemento
+                return result.Count > 0 ? Ok(result[0]) : BadRequest("No se encontró el usuario");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during get method");
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
+
+        [Route("update")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateModel model)
+        {
+            try
+            {
+                if (model.NombreNuevo != model.NombreViejo)
+                {
+                    if (!await UserQueries.UserExists(model.NombreViejo)) return BadRequest("Este nombre de usuario no existe");
+
+                    if (await UserQueries.UserExists(model.NombreNuevo)) return BadRequest("Este nombre de usuario ya existe");
+                }
+                if(model.EmailNuevo != model.EmailViejo)
+                {
+                    if (await UserQueries.EmailExists(model.EmailNuevo)) return BadRequest("Este correo ya está en uso");
+                }
+                
+                RegisterUserResultEnum result = new RegisterUserResultEnum();
+                result = await UserQueries.UpdateUser(model);
+                // La lista siempre tiene 0 o 1 elemento
+                return result == RegisterUserResultEnum.Created ? Ok() : BadRequest("Hay un error en los datos");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during login");
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
     }
 }
 

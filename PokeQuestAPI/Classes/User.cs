@@ -14,6 +14,7 @@ namespace PokeQuestAPI.Classes
         public byte[] Contraseña { get; set; }
         public byte[] Sal { get; set; }
         public DateTime FechaInicio { get; set; }
-
+        public int Puntaje { get; set; }
+        public int Trivias { get; set; }
     }
 }
