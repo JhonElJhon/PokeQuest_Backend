@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tirghPUyp6dbx8TPUojFOjxvAnJf/zgAVPIR7lnpwseVr+9h+Zn7iq4vqNNRJVfVuiDWFnrgDvuljfwlbpg70g==",
+  "dgSpecHash": "7wMOFHm/wf6RDOgbxwy0AhUS5XBKLhMRaOeG3QrzV9C5qO3BedmvGgxOuBzgzHkl3ddRSblLtCvq6JKXQv0kwQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Usuario\\Documents\\02_TAREAS UNIVALLE\\07-WWW\\PokeQuest\\PokeQuest_Backend\\PokeQuestAPI\\PokeQuestAPI.csproj",
   "expectedPackageFiles": [
@@ -36,7 +36,7 @@
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Usuario\\.nuget\\packages\\npgsql\\5.0.10\\npgsql.5.0.10.nupkg.sha512",
+    "C:\\Users\\Usuario\\.nuget\\packages\\npgsql\\5.0.18\\npgsql.5.0.18.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

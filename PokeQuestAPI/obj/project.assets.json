@@ -464,7 +464,7 @@
           }
         }
       },
-      "Npgsql/5.0.10": {
+      "Npgsql/5.0.18": {
         "type": "package",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.6.0"
@@ -2295,10 +2295,10 @@
         "version.txt"
       ]
     },
-    "Npgsql/5.0.10": {
-      "sha512": "3TB9le3lfu5Hc+LSHqMCVLcA+qUPg1enyM4+u0pMUBmNNGwc0sVPrnfnys2TVZIdkF8Aww/AZlnJHDsnEGqD0g==",
+    "Npgsql/5.0.18": {
+      "sha512": "1u4iCPKL9wtPeSUzChIbgq/BlOhvf44o7xASacdpMY7z0PbqACKpNOF0fjEn9jDV/AJl/HtPY6zk5qasQ1URhw==",
       "type": "package",
-      "path": "npgsql/5.0.10",
+      "path": "npgsql/5.0.18",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2310,7 +2310,7 @@
         "lib/netstandard2.0/Npgsql.xml",
         "lib/netstandard2.1/Npgsql.dll",
         "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.5.0.10.nupkg.sha512",
+        "npgsql.5.0.18.nupkg.sha512",
         "npgsql.nuspec",
         "postgresql.png"
       ]
@@ -5755,7 +5755,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 5.0.7",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.7",
-      "Npgsql >= 5.0.10"
+      "Npgsql >= 5.0.18"
     ]
   },
   "packageFolders": {
@@ -5827,7 +5827,7 @@
           },
           "Npgsql": {
             "target": "Package",
-            "version": "[5.0.10, )"
+            "version": "[5.0.18, )"
           }
         },
         "imports": [
