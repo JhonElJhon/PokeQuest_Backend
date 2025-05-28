@@ -1,6 +1,7 @@
 ﻿using PokeQuestAPI.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -57,11 +58,12 @@ namespace PokeQuestAPI.QueriesManager
             var filteredAbilities = new List<Ability>();
             using (var conn = new SqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"SELECT * FROM Habilidades WHERE NombreES like '{searchTerm}%'", conn))
+                using (var command = new SqlCommand($"SELECT * FROM Habilidades WHERE NombreES like @searchTerm%", conn))
                 {
                     try
                     {
                         conn.Open();
+                        command.Parameters.Add("@searchTerm", SqlDbType.VarChar, 30).Value = searchTerm;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (reader.Read())

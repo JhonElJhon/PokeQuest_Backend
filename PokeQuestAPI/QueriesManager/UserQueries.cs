@@ -20,11 +20,12 @@ namespace PokeQuestAPI.QueriesManager
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"select Nombre from Usuarios (nolock) where Nombre = '{username}'", conn))
+                using (var command = new SqlCommand($"select Nombre from Usuarios (nolock) where Nombre = @nombre", conn))
                 {
                     try
                     {
                         conn.Open();
+                        command.Parameters.Add("@nombre", SqlDbType.VarChar, 100).Value = username;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             if (reader.Read()) return true;
@@ -47,11 +48,12 @@ namespace PokeQuestAPI.QueriesManager
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"select Email from Usuarios (nolock) where Email = '{email}'", conn))
+                using (var command = new SqlCommand($"select Email from Usuarios (nolock) where Email = @email", conn))
                 {
                     try
                     {
                         conn.Open();
+                        command.Parameters.Add("@email", SqlDbType.VarChar, 100).Value = email;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             if (reader.Read()) return true;

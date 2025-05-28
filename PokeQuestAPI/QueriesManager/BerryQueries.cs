@@ -1,6 +1,7 @@
 ﻿using PokeQuestAPI.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -59,11 +60,13 @@ namespace PokeQuestAPI.QueriesManager
 
             using (var conn = new SqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"SELECT Frutas.ID, Frutas.Nombre, Tipos.NombreES as Tipo, Frutas.Sprite from Frutas inner join Tipos on Frutas.Tipo = Tipos.ID where Frutas.Nombre like '{searchTerm}%' and Tipos.NombreES = '{searchType}'", conn))
+                using (var command = new SqlCommand($"SELECT Frutas.ID, Frutas.Nombre, Tipos.NombreES as Tipo, Frutas.Sprite from Frutas inner join Tipos on Frutas.Tipo = Tipos.ID where Frutas.Nombre like @searchTerm% and Tipos.NombreES = @searchType", conn))
                 {
                     try
                     {
                         conn.Open();
+                        command.Parameters.Add("@searchTerm", SqlDbType.VarChar, 11).Value = searchTerm;
+                        command.Parameters.Add("@searchType", SqlDbType.VarChar, 22).Value = searchType;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (reader.Read())
@@ -99,11 +102,12 @@ namespace PokeQuestAPI.QueriesManager
             var filteredBerries = new List<Berry>();
             using (var conn = new SqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"SELECT Frutas.ID, Frutas.Nombre, Tipos.NombreES as Tipo, Frutas.Sprite from Frutas inner join Tipos on Frutas.Tipo = Tipos.ID where Frutas.Nombre like '{searchTerm}%'", conn))
+                using (var command = new SqlCommand($"SELECT Frutas.ID, Frutas.Nombre, Tipos.NombreES as Tipo, Frutas.Sprite from Frutas inner join Tipos on Frutas.Tipo = Tipos.ID where Frutas.Nombre like @searchTerm%", conn))
                 {
                     try
                     {
                         conn.Open();
+                        command.Parameters.Add("@searchTerm", SqlDbType.VarChar, 11).Value = searchTerm;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (reader.Read())
@@ -137,11 +141,12 @@ namespace PokeQuestAPI.QueriesManager
             var filteredBerries = new List<Berry>();
             using (var conn = new SqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"SELECT Frutas.ID, Frutas.Nombre, Tipos.NombreES as Tipo, Frutas.Sprite from Frutas inner join Tipos on Frutas.Tipo = Tipos.ID where Tipos.NombreES = '{searchType}'", conn))
+                using (var command = new SqlCommand($"SELECT Frutas.ID, Frutas.Nombre, Tipos.NombreES as Tipo, Frutas.Sprite from Frutas inner join Tipos on Frutas.Tipo = Tipos.ID where Tipos.NombreES = @searchType", conn))
                 {
                     try
                     {
                         conn.Open();
+                        command.Parameters.Add("@searchType", SqlDbType.VarChar, 22).Value = searchType;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (reader.Read())
