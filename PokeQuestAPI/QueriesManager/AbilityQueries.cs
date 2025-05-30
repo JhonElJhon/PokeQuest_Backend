@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Npgsql;
+using NpgsqlTypes;
 
 namespace PokeQuestAPI.QueriesManager
 {
     public static class AbilityQueries
     {
-        private static readonly string connectionString = "Data Source=JHONNOISES\\JHONSMEMORIES;Initial Catalog=PokeQuest;Integrated Security=True";
+        //private static readonly string connectionString = "Data Source=JHONNOISES\\JHONSMEMORIES;Initial Catalog=PokeQuest;Integrated Security=True";
+        private static readonly string connectionString = "Host=localhost;Username=postgres;Password=postgres1234;Database=PokeQuest;Port=5432";
 
         /// <summary>
         /// Obtener todos las habilidades
@@ -18,9 +21,9 @@ namespace PokeQuestAPI.QueriesManager
         public static async Task<List<Ability>> GetAllAbilities()
         {
             var abilities = new List<Ability>();
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new NpgsqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"SELECT * FROM Habilidades", conn))
+                using (var command = new NpgsqlCommand("SELECT * FROM Habilidades", conn))
                 {
                     try
                     {
@@ -56,14 +59,15 @@ namespace PokeQuestAPI.QueriesManager
         public static async Task<List<Ability>> FilterAbilitiesByName(string searchTerm)
         {
             var filteredAbilities = new List<Ability>();
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new NpgsqlConnection(connectionString))
             {
-                using (var command = new SqlCommand($"SELECT * FROM Habilidades WHERE NombreES like @searchTerm%", conn))
+                using (var command = new NpgsqlCommand("SELECT * FROM Habilidades WHERE NombreES ilike @searchTerm", conn))
                 {
                     try
                     {
                         conn.Open();
-                        command.Parameters.Add("@searchTerm", SqlDbType.VarChar, 30).Value = searchTerm;
+                        string sanitizedSearchTerm = $"{EscapeLikePattern(searchTerm)}%";
+                        command.Parameters.Add("@searchTerm", NpgsqlDbType.Varchar, 30).Value = sanitizedSearchTerm;
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (reader.Read())
@@ -87,6 +91,11 @@ namespace PokeQuestAPI.QueriesManager
 
             return filteredAbilities;
         }
-
+        private static string EscapeLikePattern(string input)
+        {
+            return input.Replace("\\", "\\\\")
+                       .Replace("%", "\\%")
+                       .Replace("_", "\\_");
+        }
     }
 }
