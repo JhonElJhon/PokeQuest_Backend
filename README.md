@@ -12,7 +12,7 @@
 #	-Microsoft.EntityFrameworkCore.Design (5.0.7)
 #	-Microsoft.EntityFrameworkCore.SqlServer (5.0.7)
 #	-Microsoft.EntityFrameworkCore.Tools (5.0.7)
-#	-Npgsql (5.0.10)
+#	-Npgsql (5.0.18)
 #
 #
 # Conección a la base de datos:
