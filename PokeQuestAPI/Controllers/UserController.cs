@@ -123,6 +123,27 @@ namespace PokeQuestAPI.Controllers
                 return StatusCode(500, "An error occurred while processing your request");
             }
         }
+
+        [Route("addPoints")]
+        [HttpPut]
+        public async Task<IActionResult> AddPoints([FromBody] AddPointsModel model)
+        {
+            try
+            {
+
+                if (!await UserQueries.UserExists(model.Usuario)) return BadRequest("Este nombre de usuario no existe");
+
+                RegisterUserResultEnum result = new RegisterUserResultEnum();
+                result = await UserQueries.AddPoints(model);
+                // La lista siempre tiene 0 o 1 elemento
+                return result == RegisterUserResultEnum.Created ? Ok() : BadRequest("Hay un error en los datos");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during login");
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
     }
 }
 

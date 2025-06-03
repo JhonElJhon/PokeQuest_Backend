@@ -231,5 +231,32 @@ namespace PokeQuestAPI.QueriesManager
             return RegisterUserResultEnum.Created;
         }
 
+        public static async Task<RegisterUserResultEnum> AddPoints(AddPointsModel model)
+        {
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                string nombre = model.Usuario;
+                int puntos = model.Puntos;
+                using (var command = new NpgsqlCommand($"UPDATE Usuarios SET Puntaje = Puntaje + @puntos, Trivias = Trivias + 1 WHERE Nombre = @nombre", conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        command.Parameters.Add("@nombre", NpgsqlDbType.Varchar, 100).Value = nombre;
+                        command.Parameters.Add("@puntos", NpgsqlDbType.Integer).Value = puntos;
+
+                        command.ExecuteNonQuery();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
+            return RegisterUserResultEnum.Created;
+        }
+
     }
 }
