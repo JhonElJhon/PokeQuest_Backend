@@ -20,7 +20,7 @@ namespace PokeQuestAPI.Controllers
             _logger = logger;
         }
         /// <summary>
-        /// Obtener las trivias filtrando por el nombre del pokemn, tipo y cantidad seleccionada
+        /// Obtener las trivias filtrando por el nombre del pokemon, tipo y cantidad seleccionada
         /// </summary>
         /// <param name="pokemon"></param>
         /// <param name="tipo"></param>
