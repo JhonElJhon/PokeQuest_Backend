@@ -12,7 +12,8 @@ namespace PokeQuestAPI.QueriesManager
     public static class BerryQueries
     {
         //private static readonly string connectionString = "Data Source=JHONNOISES\\JHONSMEMORIES;Initial Catalog=PokeQuest;Integrated Security=True";
-        private static readonly string connectionString = "Host=localhost;Username=postgres;Password=postgres1234;Database=PokeQuest;Port=5432";
+        //private static readonly string connectionString = "Host=localhost;Username=postgres;Password=postgres1234;Database=PokeQuest;Port=5432";
+        private static readonly string connectionString = "Host=ep-cool-block-a810mzkj-pooler.eastus2.azure.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_mpzPHSv1XE7c;SSL Mode=Require;Trust Server Certificate=true";
 
         /// <summary>
         /// Obtener todas las frutas

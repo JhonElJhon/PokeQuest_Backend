@@ -13,8 +13,8 @@ namespace PokeQuestAPI.QueriesManager
     public static class UserQueries
     {
         //private static readonly string connectionString = "Data Source=JHONNOISES\\JHONSMEMORIES;Initial Catalog=PokeQuest;Integrated Security=True";
-        private static readonly string connectionString = "Host=localhost;Username=postgres;Password=postgres1234;Database=PokeQuest;Port=5432";
-
+        //private static readonly string connectionString = "Host=localhost;Username=postgres;Password=postgres1234;Database=PokeQuest;Port=5432";
+        private static readonly string connectionString = "Host=ep-cool-block-a810mzkj-pooler.eastus2.azure.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_mpzPHSv1XE7c;SSL Mode=Require;Trust Server Certificate=true";
 
         /// <summary>
         /// Verifica si algún usuario ya usa el mismo nombre
@@ -158,6 +158,45 @@ namespace PokeQuestAPI.QueriesManager
             return usuario;
         }
 
+        public static async Task<List<User>> GetAllUsers()
+        {
+            List<User> usuarios = new List<User>();
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                using (var command = new NpgsqlCommand($"SELECT * From Usuarios", conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (reader.Read())
+                            {
+                                usuarios.Add(new User
+                                {
+                                    ID = reader.GetInt32(0),
+                                    Avatar = reader.GetInt32(1),
+                                    Nombre = reader.GetString(2),
+                                    Email = reader.GetString(3),
+                                    Contraseña = (byte[])reader[4],
+                                    Sal = (byte[])reader[5],
+                                    Puntaje = reader.GetInt32(6),
+                                    Trivias = reader.GetInt32(7),
+                                    FechaInicio = reader.GetDateTime(8)
+                                });
+                            }
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
+            return usuarios;
+        }
         public static async Task<List<User>> GetUser(string username)
         {
             List<User> usuario = new List<User>();

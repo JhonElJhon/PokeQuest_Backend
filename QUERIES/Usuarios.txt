@@ -7,4 +7,16 @@ CREATE TABLE Usuarios(
     	[Sal] [varbinary](128) NOT NULL,
 	[Puntaje] [int] DEFAULT 0,
 	[Trivias] [int] DEFAULT 0,
-	[FechaInicio] [datetime2](7) NOT NULL DEFAULT GETDATE())
+	[FechaInicio] [datetime2](7) NOT NULL DEFAULT GETDATE());
+
+CREATE TABLE Usuarios (
+    ID SERIAL PRIMARY KEY,
+    Avatar INT NOT NULL,
+    Nombre VARCHAR(100) NOT NULL UNIQUE,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Contraseña BYTEA NOT NULL,
+    Sal BYTEA NOT NULL,
+    Puntaje INT DEFAULT 0,
+    Trivias INT DEFAULT 0,
+    FechaInicio TIMESTAMP(7) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
